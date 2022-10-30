@@ -9,12 +9,12 @@ trait SlugTrait {
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
-    public function getSlug(): ?\DateTimeImmutable
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
 
-    public function setSlug(\DateTimeImmutable $slug): self
+    public function setSlug(string $slug): self
     {
         $this->slug = $slug;
 
