@@ -5,6 +5,29 @@
 {% block body %}
 
 <div class="container">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {# {{ dump() }} #}
+    <section class="row">
+
+    <h2 class="col-md-12 my-3 text-center">List of Categories</h2>
+
+    {% for category in categories %}
+        {% if category.parent == null %}
+            <div class="col-12">
+                <h3>{{ category.name }}</h3>
+            </div>
+        {% else %}
+            <div class="col-4">
+            {# h-100 - mm hauteur #}
+                <div class="card h-100" style="width: 18rem;">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ category.name }} ✅</h4>
+                        <a href="{{ path('category_list_product', {slug: category.slug}) }}" class="btn btn-primary">View products</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    </section>
 </div>
 {% endblock %}
