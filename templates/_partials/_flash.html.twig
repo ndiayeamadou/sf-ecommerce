@@ -1,0 +1,20 @@
+{% for label, messages in app.flashes %}
+    {# le label permet de choisir la couleur de l'alerte #}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }} alert-dismissible" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <div class="alert-message text-center">
+                {# passer le message et l'interpréter au cas où il y'aurait du HTML dedans, en mettant raw #}
+                {{ message|raw }}
+            </div>
+        </div>
+    {% endfor %}
+{# 
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="alert-message text-center">
+            <strong>Your account is not activated.</strong>Resend the activation link.
+        </div>
+    </div>
+ #}
+{% endfor %}
