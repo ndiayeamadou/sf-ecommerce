@@ -85,7 +85,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route('verify/{token}', 'verify_user')]
+    #[Route('/verify/{token}', 'verify_user')]
     public function verifyUser($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $emanager): Response
     {
         //dd($token);
