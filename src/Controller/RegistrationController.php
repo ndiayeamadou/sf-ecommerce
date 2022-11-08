@@ -58,7 +58,7 @@ class RegistrationController extends AbstractController
             /** generate token */
             $token = $jwtService->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
-            // dd($token);
+            //dd($token);
             /** END TOKEN */
 
             // we can now send mail using sendmailservice created
@@ -66,11 +66,11 @@ class RegistrationController extends AbstractController
                 'no-reply@website.net',
                 $user->getEmail(),
                 'Activation of your account to the ecommerce website',
-                'registermail',
-                [
+                'register',
+                /* [
                     'user' => $user, 'token' => $token
-                ],
-                // OR compact('user', 'token')
+                ], */
+                compact('user', 'token')
             );
 
             return $userAuthenticator->authenticateUser(
@@ -85,11 +85,13 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route('/verify/{token}', 'verify_user')]
-    public function verifyUser($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $emanager): Response
+    #[Route("/verify/{token}", name: 'verify_user')]
+    public function verifyUser(
+        $token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $emanager
+    ): Response
     {
         //dd($token);
-        //dd($jwt->isValid($token));
+        //($jwt->isValid($token));
         //dd($jwt->getPayload($token));
         //dd($jwt->isExpired($token));
         //dd($jwt->check($token, $this->getParameter('app.jwtsecret')));
@@ -154,12 +156,12 @@ class RegistrationController extends AbstractController
             'no-reply@website.net',
             $user->getEmail(),
             'Activation of your account to the ecommerce website',
-            'registermail',
+            'register',
             compact('user', 'token')
         );
 
         /** return the response */
-        $this->addFlash('success', 'Verification email sent.');
+        $this->addFlash('success', 'Verification email sent. '.$token);
         return $this->redirectToRoute('profile_index');
 
     }

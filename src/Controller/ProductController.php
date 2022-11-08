@@ -18,11 +18,10 @@ Class ProductController extends AbstractController {
         ]);
     } */
 
-    #[Route('/{slug}', name: 'show')]
+    #[Route('/{slug}', name: 'details')]
     public function show(Product $product) : Response
     {
-        dd($product);
-        return $this->render('product/index.html.twig', [
+        return $this->render('product/details.html.twig', [
             'product' => $product,
         ]);
     }
